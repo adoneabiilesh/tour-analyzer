@@ -1,0 +1,172 @@
+name: Analyze Tour Websites
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of companies to analyze (default: all)'
+        required: false
+        default: '430'
+      batch_size:
+        description: 'Companies per batch (default: 43)'
+        required: false
+        default: '43'
+
+jobs:
+  # Job 1: Analyze in parallel batches
+  analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Creates 10 parallel jobs for 430 companies
+        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      fail-fast: false
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install playwright beautifulsoup4 pillow python-slugify psutil
+          playwright install chromium
+      
+      - name: Run analysis batch ${{ matrix.batch }}
+        run: |
+          cd website-automation
+          python -c "
+import asyncio
+import json
+import sys
+
+# Load companies
+with open('../dataset_crawler-google-places_2026-01-22_05-33-25-536.json', 'r') as f:
+    all_companies = json.load(f)
+
+# Calculate batch
+batch_id = ${{ matrix.batch }}
+batch_size = 43
+start = batch_id * batch_size
+end = min(start + batch_size, len(all_companies))
+batch = all_companies[start:end]
+
+print(f'Processing batch {batch_id}: companies {start} to {end}')
+
+# Save batch temporarily
+with open('batch_input.json', 'w') as f:
+    json.dump(batch, f)
+"
+          
+          # Run analyzer on this batch
+          python analyzer.py || true
+          
+          # Rename output with batch ID
+          if [ -f analysis_results.json ]; then
+            mv analysis_results.json analysis_results_batch_${{ matrix.batch }}.json
+          fi
+      
+      - name: Upload batch results
+        uses: actions/upload-artifact@v4
+        with:
+          name: analysis-batch-${{ matrix.batch }}
+          path: website-automation/analysis_results_batch_${{ matrix.batch }}.json
+          retention-days: 30
+
+  # Job 2: Merge all results
+  merge:
+    needs: analyze
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: analysis-batch-*
+      
+      - name: Merge results
+        run: |
+          python -c "
+import json
+import glob
+import os
+
+all_results = []
+
+# Find all batch results
+for file in glob.glob('artifacts/analysis-batch-*/analysis_results_batch_*.json'):
+    print(f'Processing {file}')
+    try:
+        with open(file, 'r') as f:
+            data = json.load(f)
+            if isinstance(data, list):
+                all_results.extend(data)
+            else:
+                all_results.append(data)
+    except Exception as e:
+        print(f'Error reading {file}: {e}')
+
+print(f'Total companies analyzed: {len(all_results)}')
+
+# Save merged results
+with open('final_analysis.json', 'w') as f:
+    json.dump(all_results, f, indent=2)
+
+# Create summary
+scores = [r.get('total_score', 0) for r in all_results if isinstance(r, dict)]
+if scores:
+    print(f'Average score: {sum(scores)/len(scores):.1f}')
+    print(f'Highest: {max(scores)}')
+    print(f'Lowest: {min(scores)}')
+"
+      
+      - name: Upload final results
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-analysis
+          path: final_analysis.json
+          retention-days: 90
+      
+      - name: Upload summary CSV
+        run: |
+          python -c "
+import json
+import csv
+
+with open('final_analysis.json', 'r') as f:
+    data = json.load(f)
+
+# Create CSV summary
+with open('analysis_summary.csv', 'w', newline='') as f:
+    writer = csv.DictWriter(f, fieldnames=[
+        'company_name', 'url', 'total_score', 'grade', 
+        'extracted_email', 'extracted_phone', 'has_online_booking'
+    ])
+    writer.writeheader()
+    
+    for company in data:
+        if isinstance(company, dict):
+            writer.writerow({
+                'company_name': company.get('company_name', ''),
+                'url': company.get('url', ''),
+                'total_score': company.get('total_score', 0),
+                'grade': company.get('grade', ''),
+                'extracted_email': company.get('extracted_email', ''),
+                'extracted_phone': company.get('extracted_phone', ''),
+                'has_online_booking': company.get('has_online_booking', False)
+            })
+
+print('CSV created: analysis_summary.csv')
+"
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: analysis-summary-csv
+          path: analysis_summary.csv

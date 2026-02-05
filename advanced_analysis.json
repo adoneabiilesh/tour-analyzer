@@ -1,0 +1,242 @@
+[
+  {
+    "url": "https://rometourtickets.com/",
+    "company_name": "Rome Tour Tickets",
+    "functionality_score": 95,
+    "design_score": 55,
+    "accessibility_score": 100,
+    "ux_score": 10,
+    "broken": {
+      "broken_links": [
+        "https://www.tripadvisor.com/Attraction_Review-g187791-d14065170-Reviews-Rome_Tour_Tickets-Rome_Lazio.html"
+      ],
+      "missing_pages": [],
+      "broken_forms": [],
+      "missing_labels": [
+        "unnamed",
+        "_mc4wp_honeypot",
+        "_mc4wp_timestamp",
+        "_mc4wp_form_id",
+        "_mc4wp_form_element_id"
+      ],
+      "broken_images": [],
+      "oversized_images": [],
+      "missing_alt": 20,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    "design": {
+      "low_contrast_elements": [],
+      "too_many_colors": true,
+      "color_count": 38,
+      "too_many_fonts": true,
+      "font_count": 8,
+      "tiny_text": [],
+      "horizontal_scroll": false,
+      "overlapping_elements": [],
+      "cluttered_layout": false,
+      "blurry_images": [],
+      "stretched_images": [],
+      "non_responsive_elements": [],
+      "touch_targets_too_small": [
+        "Colosseum Tours",
+        "Vatican Tours",
+        "Rome City Tours",
+        "Italy Tours",
+        " +39 06 275 7630"
+      ]
+    },
+    "total_errors": 1,
+    "total_warnings": 5,
+    "overall_score": 73
+  },
+  {
+    "url": "http://www.madeinrometours.com/",
+    "company_name": "Vatican Tour",
+    "functionality_score": 85,
+    "design_score": 55,
+    "accessibility_score": 90,
+    "ux_score": 39,
+    "broken": {
+      "broken_links": [
+        "https://www.tripadvisor.com/Attraction_Review-g187791-d14963507-Reviews-Made_in_Rome_Tours-Rome_Lazio.html",
+        "https://www.tripadvisor.com/Attraction_Review-g187791-d14963507-Reviews-Made_in_Rome_Tours-Rome_Lazio.html",
+        "https://www.tripadvisor.com/Attraction_Review-g187791-d14963507-Reviews-Made_in_Rome_Tours-Rome_Lazio.html"
+      ],
+      "missing_pages": [],
+      "broken_forms": [],
+      "missing_labels": [
+        "tour-search",
+        "tax-tours",
+        "date",
+        "unnamed"
+      ],
+      "broken_images": [],
+      "oversized_images": [],
+      "missing_alt": 8,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    "design": {
+      "low_contrast_elements": [],
+      "too_many_colors": true,
+      "color_count": 35,
+      "too_many_fonts": true,
+      "font_count": 6,
+      "tiny_text": [],
+      "horizontal_scroll": false,
+      "overlapping_elements": [],
+      "cluttered_layout": false,
+      "blurry_images": [],
+      "stretched_images": [],
+      "non_responsive_elements": [],
+      "touch_targets_too_small": [
+        "A",
+        "A",
+        "Blog",
+        "View All Tours",
+        "A"
+      ]
+    },
+    "total_errors": 3,
+    "total_warnings": 4,
+    "overall_score": 71
+  },
+  {
+    "url": "http://www.inforomartour.com/",
+    "company_name": "ARTOUR Rome Tourist Agency",
+    "functionality_score": 95,
+    "design_score": 35,
+    "accessibility_score": 100,
+    "ux_score": 69,
+    "broken": {
+      "broken_links": [
+        "https://www.facebook.com/RomArtour"
+      ],
+      "missing_pages": [],
+      "broken_forms": [],
+      "missing_labels": [],
+      "broken_images": [],
+      "oversized_images": [],
+      "missing_alt": 3,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    "design": {
+      "low_contrast_elements": [],
+      "too_many_colors": true,
+      "color_count": 20,
+      "too_many_fonts": true,
+      "font_count": 13,
+      "tiny_text": [],
+      "horizontal_scroll": true,
+      "overlapping_elements": [],
+      "cluttered_layout": false,
+      "blurry_images": [],
+      "stretched_images": [],
+      "non_responsive_elements": [],
+      "touch_targets_too_small": [
+        "Skip to Main Content",
+        "AGENCY",
+        "TOUR",
+        "BUTTON",
+        "INFO AND PRICE"
+      ]
+    },
+    "total_errors": 1,
+    "total_warnings": 0,
+    "overall_score": 77
+  },
+  {
+    "url": "http://www.luxuryrometour.com/",
+    "company_name": "Luxury Rome Tour",
+    "functionality_score": 90,
+    "design_score": 55,
+    "accessibility_score": 100,
+    "ux_score": 19,
+    "broken": {
+      "broken_links": [],
+      "missing_pages": [],
+      "broken_forms": [],
+      "missing_labels": [],
+      "broken_images": [],
+      "oversized_images": [],
+      "missing_alt": 28,
+      "console_errors": [
+        "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+        "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+        "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+        "Failed to load resource: net::ERR_NAME_NOT_RESOLVED",
+        "Failed to load resource: net::ERR_NAME_NOT_RESOLVED"
+      ],
+      "failed_requests": []
+    },
+    "design": {
+      "low_contrast_elements": [],
+      "too_many_colors": true,
+      "color_count": 38,
+      "too_many_fonts": true,
+      "font_count": 5,
+      "tiny_text": [],
+      "horizontal_scroll": false,
+      "overlapping_elements": [],
+      "cluttered_layout": false,
+      "blurry_images": [],
+      "stretched_images": [],
+      "non_responsive_elements": [],
+      "touch_targets_too_small": [
+        "<img fetchpriority=\"",
+        "A",
+        "HOME",
+        "ABOUT US",
+        "TOURS"
+      ]
+    },
+    "total_errors": 5,
+    "total_warnings": 0,
+    "overall_score": 73
+  },
+  {
+    "url": "http://angeltours.com/",
+    "company_name": "Angel Tours",
+    "functionality_score": 100,
+    "design_score": 35,
+    "accessibility_score": 100,
+    "ux_score": 75,
+    "broken": {
+      "broken_links": [],
+      "missing_pages": [],
+      "broken_forms": [],
+      "missing_labels": [],
+      "broken_images": [],
+      "oversized_images": [],
+      "missing_alt": 0,
+      "console_errors": [],
+      "failed_requests": []
+    },
+    "design": {
+      "low_contrast_elements": [],
+      "too_many_colors": true,
+      "color_count": 12,
+      "too_many_fonts": true,
+      "font_count": 4,
+      "tiny_text": [],
+      "horizontal_scroll": true,
+      "overlapping_elements": [],
+      "cluttered_layout": false,
+      "blurry_images": [],
+      "stretched_images": [],
+      "non_responsive_elements": [],
+      "touch_targets_too_small": [
+        "BUTTON",
+        "View All Destination",
+        "Dublin",
+        "Rome",
+        "Vatican"
+      ]
+    },
+    "total_errors": 0,
+    "total_warnings": 0,
+    "overall_score": 80
+  }
+]
