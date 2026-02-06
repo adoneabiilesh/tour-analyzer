@@ -1,7 +1,6 @@
 name: Analyze Tour Websites
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   analyze:
@@ -13,53 +12,14 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Check files exist
-        run: |
-          ls -la
-          ls -la website-automation/ || echo "No website-automation folder"
+      - run: pip install playwright beautifulsoup4 pillow python-slugify
       
-      - name: Install dependencies
-        run: pip install playwright beautifulsoup4 pillow python-slugify
+      - run: playwright install chromium
       
-      - name: Install browser
-        run: playwright install chromium
-      
-      - name: Run analysis
-        run: |
-          cd website-automation
-          python -c "
-import json
-import sys
-
-# Try to load dataset
-try:
-    with open('../dataset_crawler-google-places_2026-01-22_05-33-25-536.json', 'r') as f:
-        data = json.load(f)
-    print(f'Found {len(data)} companies')
-except Exception as e:
-    print(f'Error loading dataset: {e}')
-    # Try alternative path
-    try:
-        with open('dataset_crawler-google-places_2026-01-22_05-33-25-536.json', 'r') as f:
-            data = json.load(f)
-        print(f'Found {len(data)} companies (alt path)')
-    except Exception as e2:
-        print(f'Error alt path: {e2}')
-        sys.exit(1)
-"
-          python analyzer.py || echo "Analyzer failed but continuing"
+      - run: cd website-automation && python analyzer.py
         continue-on-error: true
       
-      - name: Check what was created
-        run: |
-          ls -la website-automation/
-          cat website-automation/analysis_results.json 2>/dev/null || echo "No results file"
-      
-      - name: Upload results
-        uses: actions/upload-artifact@v4
-        if: always()
+      - uses: actions/upload-artifact@v4
         with:
           name: analysis-results
-          path: |
-            website-automation/analysis_results.json
-            website-automation/*.json
+          path: website-automation/analysis_results.json
